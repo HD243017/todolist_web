@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Y2K TO DO LIST</title>
+  <link rel="stylesheet" href="y2k_todo.css">
+</head>
+<body class="theme-white">
+  <div class="y2k-container">
+    <!-- 상단 네비게이션 바 -->
+    <header class="navbar">
+      <div class="nav-left"></div>
+      <h1 class="nav-title">TO DO LIST</h1>
+      <div class="nav-right">
+        <button id="add-btn" class="y2k-btn" title="계획 추가">+</button>
+        <div class="theme-menu-wrapper">
+          <button id="theme-btn" class="y2k-btn" title="설정">⚙</button>
+          <!-- 테마 선택 드롭다운 (검은색, 흰색, 초록색) -->
+          <div id="theme-dropdown" class="dropdown-menu hidden">
+            <div class="dropdown-header">THEME</div>
+            <button data-theme="black">■ 검은색 (Black)</button>
+            <button data-theme="white">□ 흰색 (White)</button>
+            <button data-theme="green">▣ 초록색 (Green)</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 계획 목록 영역 -->
+    <main class="todo-board">
+      <ul id="y2k-todo-list" class="todo-list"></ul>
+      <!-- + 버튼 클릭 시 최하단에 나타나는 제목 입력 칸 -->
+      <div id="input-container" class="input-wrapper hidden">
+        <div class="tree-branch"></div>
+        <input type="text" id="new-todo-input" placeholder="새 계획 제목을 입력 후 Enter..." autocomplete="off" />
+      </div>
+    </main>
+  </div>
+
+  <script src="y2k_todo.js"></script>
+</body>
+</html>

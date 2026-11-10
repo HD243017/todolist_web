@@ -1,0 +1,295 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important; /* Y2K 직선 감성 유지 */
+}
+
+/* 테마 변수 설정 (흰색, 검은색, 초록색) */
+body.theme-white {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #000000;
+  --sub-bg: #f4f4f4;
+  --accent-bg: #e0e0e0;
+}
+
+body.theme-black {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --border-color: #ffffff;
+  --sub-bg: #1a1a1a;
+  --accent-bg: #333333;
+}
+
+body.theme-green {
+  --bg-color: #051a05;
+  --text-color: #00ff41;
+  --border-color: #00ff41;
+  --sub-bg: #0a2e0a;
+  --accent-bg: #145214;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Courier New', 'DungGeunMo', 'Gulim', monospace;
+  display: flex;
+  justify-content: center;
+  padding: 30px 15px;
+  min-height: 100vh;
+}
+
+.y2k-container {
+  width: 100%;
+  max-width: 480px;
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 네비게이션 바 (제목 가운데 정렬, 버튼 우측 정렬) */
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--border-color);
+  background-color: var(--sub-bg);
+}
+
+.nav-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+}
+
+.y2k-btn {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  width: 30px;
+  height: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.y2k-btn:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+/* 드롭다운 메뉴 공통 */
+.theme-menu-wrapper,
+.item-menu-wrapper {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 34px;
+  background-color: var(--bg-color);
+  border: 2px solid var(--border-color);
+  z-index: 100;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-header {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  font-weight: bold;
+}
+
+.dropdown-menu button {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 8px 10px;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.dropdown-menu button:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu button:hover {
+  background-color: var(--accent-bg);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* 메인 보드 및 왼쪽 트리 구조 (이미지 2번 구현) */
+.todo-board {
+  padding: 24px 20px 30px 55px; /* 왼쪽 트리 선을 위한 여백 */
+  flex: 1;
+}
+
+.todo-list {
+  list-style: none;
+  position: relative;
+}
+
+.todo-node {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+/* 왼쪽 수직 기둥 선: 첫 번째 아이템부터 마지막 아이템까지 연결 */
+.todo-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 22px;
+  bottom: -38px;
+  width: 3px;
+  background-color: var(--border-color);
+}
+
+/* 각 아이템으로 연결되는 가로 가지 선 */
+.todo-node::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 22px;
+  width: 18px;
+  height: 3px;
+  background-color: var(--border-color);
+}
+
+/* 1번 칸은 항상 왼쪽으로 선이 하나 더 길게 그어져 있음 (스케치 반영) */
+.todo-node:first-child::before {
+  left: -42px;
+  width: 36px;
+}
+
+/* 아이템 헤더 박스 (제목 + 우측 설정 버튼) */
+.todo-header {
+  border: 2px solid var(--border-color);
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.todo-header:hover {
+  background-color: var(--sub-bg);
+}
+
+.todo-title {
+  font-size: 1rem;
+  font-weight: bold;
+  flex: 1;
+  word-break: break-all;
+  padding-right: 10px;
+}
+
+/* 완료 시 아이템 제목에 밑줄 */
+.todo-title.completed {
+  text-decoration: line-through;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 2px;
+}
+
+/* 우측 원형/네모 설정 버튼 (스케치의 우측 동그라미 버튼 반영) */
+.item-setting-btn {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-setting-btn:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+/* 클릭 시 아래로 열리는 4:3 비율 세부 계획 네모 박스 */
+.todo-detail-box {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* 가로 400일 때 세로 300 비율 자동 유지 */
+  border: 2px solid var(--border-color);
+  border-top: none; /* 위 제목 박스와 하나로 이어지게 처리 */
+  background-color: var(--sub-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.detail-textarea {
+  width: 100%;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+}
+
+.char-counter {
+  text-align: right;
+  font-size: 0.8rem;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border-color);
+}
+
+/* 최하단 새 계획 추가 입력창 */
+.input-wrapper {
+  position: relative;
+  margin-top: 8px;
+}
+
+.input-wrapper .tree-branch {
+  position: absolute;
+  left: -24px;
+  top: 22px;
+  width: 18px;
+  height: 3px;
+  background-color: var(--border-color);
+}
+
+#new-todo-input {
+  width: 100%;
+  border: 2px solid var(--border-color);
+  padding: 10px 12px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
