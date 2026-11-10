@@ -1,3 +1,3 @@
-# Y2K To-Do List
+# To-Do List
 
 🔗 **배포 사이트**: [https://todolistweb-ten.vercel.app/](https://todolistweb-ten.vercel.app/)
